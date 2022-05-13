@@ -22,7 +22,7 @@ class Articles extends Seeder
                 'title' => 'Film Wuxia Terbaru',
                 'content' => 'Who Rules The Word akan dirilis bulan Mei ini oleh Tencen Picture, menampilkan Yang-Yang dan Zhao Luci',
                 'author_id' => 2,
-                'slug' => 'twitter-diakuisisi-elon-musk',
+                'slug' => 'film-wuxia-terbaru',
                 'category_id' => 2
             ]
         ];
