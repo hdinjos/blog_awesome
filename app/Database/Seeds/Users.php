@@ -26,7 +26,7 @@ class Users extends Seeder
             ]
         ];
         foreach ($datas as $data) {
-            $this->db->table('roles')->insert($data);
+            $this->db->table('users')->insert($data);
         };
     }
 }
