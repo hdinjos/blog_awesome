@@ -11,7 +11,7 @@ class Articles extends Model
   protected $useAutoIncrement = true;
   protected $returnType       = 'object';
   protected $protectFields    = false;
-  protected $allowedFields    = [''];
+  protected $allowedFields    = ['title', 'image', 'slug', 'content', 'status', 'author_id', 'category_id'];
 
   public function index()
   {

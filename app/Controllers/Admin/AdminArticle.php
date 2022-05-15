@@ -20,7 +20,22 @@ class AdminArticle extends BaseController
         $authorModel = model(Users::class);
         $data['categories'] = $categoryModel->index();
         $data['authors'] = $authorModel->index('id, name');
-        var_dump($data);
+
+        if ($this->request->getMethod() === 'post') {
+            $dataReq = [
+                'title' => $this->request->getPost('title'),
+                'image' => $this->request->getPost('image'),
+                'slug' => url_title($this->request->getPost('title'), '-', true) . '-' . time(),
+                'content' => $this->request->getPost('content'),
+                'status' => $this->request->getPost('status'),
+                'author_id' => $this->request->getPost('author'),
+                'category_id' => $this->request->getPost('category'),
+            ];
+            var_dump($dataReq);
+            // return redirect('admin/articles');
+            // return view('pages/admin/article/create', $data);
+        }
+
         return view('pages/admin/article/create', $data);
     }
 }

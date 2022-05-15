@@ -36,7 +36,7 @@ $routes->group('admin', function ($routes) {
     $routes->get('', 'Admin\AdminHome::index');
     $routes->group('articles', function ($routes) {
         $routes->get('', 'Admin\AdminArticle::index');
-        $routes->get('create', 'Admin\AdminArticle::create');
+        $routes->add('create', 'Admin\AdminArticle::create');
     });
     $routes->get('categories', 'Admin\AdminCategory::index');
     $routes->group('users', function ($routes) {

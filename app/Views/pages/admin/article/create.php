@@ -2,7 +2,8 @@
 <?= $this->section('content') ?>
 <h2>Create Articles</h2>
 <a href="/admin/articles">Back</a>
-<form action="post">
+<form method="post" action="/admin/articles/create">
+  <?= csrf_field() ?>
   <div>
     <label for="title">
       Title
@@ -52,7 +53,7 @@
     </label>
   </div>
   <div>
-    <input type="submit" value="Create Articles" />
+    <input type="submit" name="add" value="Create Articles" />
   </div>
 </form>
 <?= $this->endSection() ?>
