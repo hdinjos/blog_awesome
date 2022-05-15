@@ -11,8 +11,7 @@ class AdminArticle extends BaseController
     {
         //
         $model = model(Articles::class);
-        $data = $model->findAll();
-        var_dump($data[0]);
-        return view('pages/admin/article/index');
+        $data['articles'] = $model->index();
+        return view('pages/admin/article/index', $data);
     }
 }

@@ -11,14 +11,17 @@
     <th>Status</th>
     <th>Category</th>
   </tr>
-  <tr>
-    <td>1</td>
-    <td>1</td>
-    <td>1</td>
-    <td>1</td>
-    <td>1</td>
-    <td>1</td>
-    <td>1</td>
-  </tr>
+  <?php $num = 0; ?>
+  <?php foreach ($articles as $article) : ?>
+    <tr>
+      <td><?= $num += 1 ?></td>
+      <td><?= $article->title ?></td>
+      <td><?= $article->image ?></td>
+      <td><?= $article->content ?></td>
+      <td><?= $article->author ?></td>
+      <td><?= $article->status ?></td>
+      <td><?= $article->category ?></td>
+    </tr>
+  <?php endforeach; ?>
 </table>
 <?= $this->endSection() ?>
