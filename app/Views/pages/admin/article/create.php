@@ -1,10 +1,54 @@
 <?= $this->extend('layout/layout_admin') ?>
 <?= $this->section('content') ?>
 <h2>Create Articles</h2>
+<a href="/admin/articles">Back</a>
 <form action="post">
-  <label for="title">
-    Title
-    <input type="text" name="title" />
-  </label>
+  <div>
+    <label for="title">
+      Title
+      <input type="text" name="title" />
+    </label>
+  </div>
+  <div>
+    <label for="image">
+      Image
+      <input type="file" name="image" accept=".jpg, .png" />
+    </label>
+  </div>
+  <div>
+    <label for="content">
+      Content
+      <textarea name="content"></textarea>
+    </label>
+  </div>
+  <div>
+    <label for="author">
+      Author
+      <select name="author">
+        <option>HH</option>
+      </select>
+    </label>
+  </div>
+  <div>
+    <label for="status">
+      Status
+      <select name="status">
+        <option>HH</option>
+      </select>
+    </label>
+  </div>
+  <div>
+    <label for="category">
+      Category
+      <select name="category">
+        <?php foreach ($categories as $category) : ?>
+          <option value="<?= $category->id ?>"><?= $category->name ?></option>
+        <?php endforeach; ?>
+      </select>
+    </label>
+  </div>
+  <div>
+    <input type="submit" value="Create Articles" />
+  </div>
 </form>
 <?= $this->endSection() ?>

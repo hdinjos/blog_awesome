@@ -16,6 +16,9 @@ class AdminArticle extends BaseController
 
     public function create()
     {
-        return view('pages/admin/article/create');
+        $categoryModel = model(Categories::class);
+        $data['categories'] = $categoryModel->index();
+        var_dump($data);
+        return view('pages/admin/article/create', $data);
     }
 }
