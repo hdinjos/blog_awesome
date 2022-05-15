@@ -25,7 +25,9 @@
     <label for="author">
       Author
       <select name="author">
-        <option>HH</option>
+        <?php foreach ($authors as $author) : ?>
+          <option value="<?= $author->id ?>"><?= $author->name ?></option>
+        <?php endforeach; ?>
       </select>
     </label>
   </div>
@@ -33,7 +35,9 @@
     <label for="status">
       Status
       <select name="status">
-        <option>HH</option>
+        <option value="draft">Draft</option>
+        <option value="pending">Pending</option>
+        <option value="publish">Publish</option>
       </select>
     </label>
   </div>
