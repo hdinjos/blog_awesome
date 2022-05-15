@@ -34,9 +34,14 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::index');
 $routes->group('admin', function ($routes) {
     $routes->get('', 'Admin\AdminHome::index');
-    $routes->get('articles', 'Admin\AdminArticle::index');
+    $routes->group('articles', function ($routes) {
+        $routes->get('', 'Admin\AdminArticle::index');
+        $routes->get('create', 'Admin\AdminArticle::create');
+    });
     $routes->get('categories', 'Admin\AdminCategory::index');
-    $routes->get('users', 'Admin\AdminUser::index');
+    $routes->group('users', function ($routes) {
+        $routes->get('', 'Admin\AdminUser::index');
+    });
 });
 
 /*
