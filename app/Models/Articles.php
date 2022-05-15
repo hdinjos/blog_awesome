@@ -15,6 +15,13 @@ class Articles extends Model
 
     public function index()
     {
+        //with raw query
+        $db = db_connect();
+        $result = $db
+            ->query('select * from articles')
+            ->getResultObject();
+
+        //with model & query builder mixed
         return $this
             ->join('categories', 'categories.id = articles.category_id')
             ->join('users', 'users.id = articles.author_id')
