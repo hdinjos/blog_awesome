@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <h2>Create Articles</h2>
 <a href="/admin/articles">Back</a>
-<form method="post" action="/admin/articles/create">
+<form method="post" action="/admin/articles/create" enctype="multipart/form-data">
   <?= csrf_field() ?>
   <div>
     <label for="title">
