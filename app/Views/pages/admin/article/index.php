@@ -17,7 +17,9 @@
     <tr>
       <td><?= $num += 1 ?></td>
       <td><?= $article->title ?></td>
-      <td><?= $article->image ?></td>
+      <td>
+        <img width="100" src="<?= base_url('assets/uploads/image') . '/' . $article->image ?>" alt="article_img" ?>
+      </td>
       <td><?= $article->content ?></td>
       <td><?= $article->author ?></td>
       <td><?= $article->status ?></td>
