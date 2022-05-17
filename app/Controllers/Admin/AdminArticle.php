@@ -41,4 +41,15 @@ class AdminArticle extends BaseController
 
         return view('pages/admin/article/create', $data);
     }
+
+    public function destroy($id)
+    {
+        $model = model(Articles::class);
+        if ($this->request->getMethod() === 'post' && $id) {
+            $model->delete($id);
+            var_dump($id);
+            return redirect()->to(base_url('admin/articles'));
+        }
+        return view('pages/admin/article/destroy');
+    }
 }

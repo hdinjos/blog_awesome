@@ -11,19 +11,23 @@
     <th>Author</th>
     <th>Status</th>
     <th>Category</th>
+    <th>Action</th>
   </tr>
   <?php $num = 0; ?>
   <?php foreach ($articles as $article) : ?>
     <tr>
       <td><?= $num += 1 ?></td>
-      <td><?= $article->title ?></td>
+      <td><?= esc($article->title) ?></td>
       <td>
-        <img width="100" src="<?= base_url('assets/uploads/image') . '/' . $article->image ?>" alt="article_img" ?>
+        <img width="100" src="<?= base_url('assets/uploads/image') . '/' . esc($article->image) ?>" alt="article_img" ?>
       </td>
-      <td><?= $article->content ?></td>
-      <td><?= $article->author ?></td>
-      <td><?= $article->status ?></td>
-      <td><?= $article->category ?></td>
+      <td><?= esc($article->content) ?></td>
+      <td><?= esc($article->author) ?></td>
+      <td><?= esc($article->status) ?></td>
+      <td><?= esc($article->category) ?></td>
+      <td>
+        <a href="/admin/articles/delete/<?= esc($article->id) ?>">Delete</a>
+      </td>
     </tr>
   <?php endforeach; ?>
 </table>
