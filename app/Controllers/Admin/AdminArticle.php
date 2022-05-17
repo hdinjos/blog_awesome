@@ -46,8 +46,11 @@ class AdminArticle extends BaseController
     {
         $model = model(Articles::class);
         if ($this->request->getMethod() === 'post' && $id) {
+            $img = $model->find($id)->image;
+            if ($img !== 'default_img.jpg') {
+                unlink('assets/uploads/image/' . $img);
+            }
             $model->delete($id);
-            var_dump($id);
             return redirect()->to(base_url('admin/articles'));
         }
         return view('pages/admin/article/destroy');
