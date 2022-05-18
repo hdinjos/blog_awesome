@@ -27,6 +27,7 @@
       <td><?= esc($article->category) ?></td>
       <td>
         <a href="/admin/articles/delete/<?= esc($article->id) ?>">Delete</a>
+        <a href="/admin/articles/edit/<?= esc($article->id) ?>">Edit</a>
       </td>
     </tr>
   <?php endforeach; ?>

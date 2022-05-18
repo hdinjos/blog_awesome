@@ -38,6 +38,7 @@ $routes->group('admin', function ($routes) {
         $routes->get('', 'Admin\AdminArticle::index');
         $routes->add('create', 'Admin\AdminArticle::create');
         $routes->add('delete/(:num)', 'Admin\AdminArticle::destroy/$1');
+        $routes->add('edit/(:num)', 'Admin\AdminArticle::update/$1');
     });
     $routes->get('categories', 'Admin\AdminCategory::index');
     $routes->group('users', function ($routes) {

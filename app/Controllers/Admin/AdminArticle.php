@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Database\Migrations\Articles;
+use App\Database\Migrations\Categories;
 
 class AdminArticle extends BaseController
 {
@@ -54,5 +55,18 @@ class AdminArticle extends BaseController
             return redirect()->to(base_url('admin/articles'));
         }
         return view('pages/admin/article/destroy');
+    }
+
+    public function update($id)
+    {
+        $modelAuthor = model(Users::class);
+        $modelCategory = model(Categories::class);
+        $modelArticle = model(Articles::class);
+        $data['authors'] = $modelAuthor->index('id, name');
+        $data['categories'] = $modelCategory->index();
+        $data['article'] = $modelArticle->find($id);
+        // $this->load->helper("url");
+        // var_dump(file_get_contents(base_url() . '/assets/uploads/image' . '/' . $data['article']->image));
+        return view('pages/admin/article/update', $data);
     }
 }
