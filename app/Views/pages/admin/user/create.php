@@ -17,6 +17,18 @@
   </div>
   <div>
     <label>
+      Password
+      <input id="pass" type="password" name="password" />
+    </label>
+  </div>
+  <div>
+    <label>
+      Confirm Password
+      <input id="passConf" type="password" />
+    </label>
+  </div>
+  <div>
+    <label>
       Bio
       <textarea name="bio"></textarea>
     </label>
@@ -32,8 +44,27 @@
     </label>
   </div>
   <div>
-    <input type="submit" name="submit" value="Create User" />
+    <input disabled id="submit" type="submit" name="submit" value="Create User" />
   </div>
-
 </form>
+<script>
+  const pass = document.querySelector('#pass');
+  const passConf = document.querySelector('#passConf');
+  const submit = document.querySelector('#submit');
+  passConf.addEventListener('input', function(e) {
+    if (e.target.value === pass.value) {
+      submit.disabled = false;
+    } else {
+      submit.disabled = true;
+    }
+  });
+
+  pass.addEventListener('input', function(e) {
+    if (e.target.value === passConf.value) {
+      submit.disabled = false;
+    } else {
+      submit.disabled = true;
+    }
+  });
+</script>
 <?= $this->endSection() ?>
