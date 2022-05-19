@@ -43,6 +43,7 @@ $routes->group('admin', function ($routes) {
     $routes->get('categories', 'Admin\AdminCategory::index');
     $routes->group('users', function ($routes) {
         $routes->get('', 'Admin\AdminUser::index');
+        $routes->add('create', 'Admin\AdminUser::create');
     });
 });
 
