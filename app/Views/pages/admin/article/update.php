@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <h2>Edit Articles</h2>
 <a href="/admin/articles">Back</a>
-<form method="post" action="/admin/articles/create" enctype="multipart/form-data">
+<form method="post" action="" enctype="multipart/form-data">
   <?= csrf_field() ?>
   <div>
     <label for="title">
@@ -13,21 +13,22 @@
   <div>
     <label for="image">
       Image
-      <input value="<?= base_url('assets/uploads/image/') . '/' . esc($article->image) ?>" type="file" name="image" accept=".jpg, .png" />
+      <img id="img_preview" src="<?= base_url('assets/uploads/image/') . '/' . esc($article->image) ?>" alt="image_article" width="100" />
+      <input id="img_input" type="file" name="image" accept=".jpg, .png" />
     </label>
   </div>
   <div>
     <label for="content">
       Content
-      <textarea name="content"></textarea>
+      <textarea name="content"><?= esc($article->content) ?></textarea>
     </label>
   </div>
   <div>
     <label for="author">
       Author
-      <select name="author">
+      <select name="author" selected="<?= esc($article->author_id) ?>">
         <?php foreach ($authors as $author) : ?>
-          <option value="<?= $author->id ?>"><?= $author->name ?></option>
+          <option <?= esc($article->author_id) === esc($author->id) ? 'selected=selected' : '' ?> value="<?= esc($author->id) ?>"><?= esc($author->name) ?></option>
         <?php endforeach; ?>
       </select>
     </label>
@@ -35,10 +36,10 @@
   <div>
     <label for="status">
       Status
-      <select name="status">
-        <option value="draft">Draft</option>
-        <option value="pending">Pending</option>
-        <option value="publish">Publish</option>
+      <select name="status" selected="">
+        <option <?= esc($article->status) === 'draft' ? 'selected=selected' : '' ?> value="draft">Draft</option>
+        <option <?= esc($article->status) === 'pending' ? 'selected=selected' : '' ?> value="pending">Pending</option>
+        <option <?= esc($article->status) === 'publish' ? 'selected=selected' : '' ?> value="publish">Publish</option>
       </select>
     </label>
   </div>
@@ -47,7 +48,7 @@
       Category
       <select name="category">
         <?php foreach ($categories as $category) : ?>
-          <option value="<?= $category->id ?>"><?= $category->name ?></option>
+          <option <?= esc($category->id) === esc($article->category_id) ? 'selected=selected' : '' ?> value="<?= esc($category->id) ?>"><?= esc($category->name) ?></option>
         <?php endforeach; ?>
       </select>
     </label>
@@ -56,4 +57,16 @@
     <input type="submit" name="add" value="Update Articles" />
   </div>
 </form>
+
+<script>
+  const input = document.querySelector("#img_input");
+  const preview = document.querySelector("#img_preview");
+  input.addEventListener('change', function(e) {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = function() {
+      preview.src = reader.result;
+    }
+  });
+</script>
 <?= $this->endSection() ?>

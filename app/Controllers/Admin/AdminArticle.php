@@ -25,18 +25,31 @@ class AdminArticle extends BaseController
 
         if ($this->request->getMethod() === 'post') {
             $imgFile = $this->request->getFile('image');
-            $imgName = explode('.', $imgFile->getName())[0] . time() . '.' . $imgFile->getClientExtension();
-            $imgFile->move('assets/uploads/image', $imgName);
-            $dataReq = [
-                'title' => $this->request->getPost('title'),
-                'image' => $imgName,
-                'slug' => url_title($this->request->getPost('title'), '-', true) . '-' . time(),
-                'content' => $this->request->getPost('content'),
-                'status' => $this->request->getPost('status'),
-                'author_id' => $this->request->getPost('author'),
-                'category_id' => $this->request->getPost('category'),
-            ];
-            $articleModel->insert($dataReq);
+            if ($imgFile->getName() === '') {
+                $dataReq = [
+                    'title' => $this->request->getPost('title'),
+                    'image' => 'default_img.jpg',
+                    'slug' => url_title($this->request->getPost('title'), '-', true) . '-' . time(),
+                    'content' => $this->request->getPost('content'),
+                    'status' => $this->request->getPost('status'),
+                    'author_id' => $this->request->getPost('author'),
+                    'category_id' => $this->request->getPost('category'),
+                ];
+                $articleModel->insert($dataReq);
+            } else {
+                $imgName = explode('.', $imgFile->getName())[0] . time() . '.' . $imgFile->getClientExtension();
+                $imgFile->move('assets/uploads/image', $imgName);
+                $dataReq = [
+                    'title' => $this->request->getPost('title'),
+                    'image' => $imgName,
+                    'slug' => url_title($this->request->getPost('title'), '-', true) . '-' . time(),
+                    'content' => $this->request->getPost('content'),
+                    'status' => $this->request->getPost('status'),
+                    'author_id' => $this->request->getPost('author'),
+                    'category_id' => $this->request->getPost('category'),
+                ];
+                $articleModel->insert($dataReq);
+            }
             return redirect()->to(base_url('admin/articles'));
         }
 
@@ -62,11 +75,43 @@ class AdminArticle extends BaseController
         $modelAuthor = model(Users::class);
         $modelCategory = model(Categories::class);
         $modelArticle = model(Articles::class);
-        $data['authors'] = $modelAuthor->index('id, name');
-        $data['categories'] = $modelCategory->index();
-        $data['article'] = $modelArticle->find($id);
-        // $this->load->helper("url");
-        // var_dump(file_get_contents(base_url() . '/assets/uploads/image' . '/' . $data['article']->image));
+        $data = [
+            "authors" => $modelAuthor->index('id, name'),
+            "categories" => $modelCategory->index(),
+            "article" => $modelArticle->find($id)
+        ];
+        if ($this->request->getMethod() === 'post') {
+            $imgFile = $this->request->getFile('image');
+            $imgName = explode('.', $imgFile->getName())[0] . time() . '.' . $imgFile->getClientExtension();
+
+            if ($imgFile->getName() === '') {
+                $dataReq = [
+                    'title' => $this->request->getPost('title'),
+                    'slug' => url_title($this->request->getPost('title'), '-', true) . '-' . time(),
+                    'content' => $this->request->getPost('content'),
+                    'status' => $this->request->getPost('status'),
+                    'author_id' => $this->request->getPost('author'),
+                    'category_id' => $this->request->getPost('category'),
+                ];
+                $modelArticle->update($id, $dataReq);
+            } else {
+                if ($data['article']->image !== 'default_img.jpg') {
+                    unlink('assets/uploads/image/' . $data['article']->image);
+                }
+                $imgFile->move('assets/uploads/image', $imgName);
+                $dataReq = [
+                    'title' => $this->request->getPost('title'),
+                    'image' => $imgName,
+                    'slug' => url_title($this->request->getPost('title'), '-', true) . '-' . time(),
+                    'content' => $this->request->getPost('content'),
+                    'status' => $this->request->getPost('status'),
+                    'author_id' => $this->request->getPost('author'),
+                    'category_id' => $this->request->getPost('category'),
+                ];
+                $modelArticle->update($id, $dataReq);
+            }
+            return redirect()->to(base_url('admin/articles'));
+        }
         return view('pages/admin/article/update', $data);
     }
 }
