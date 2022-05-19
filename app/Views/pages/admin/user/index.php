@@ -9,6 +9,7 @@
     <th>Email</th>
     <th>Bio</th>
     <th>Role</th>
+    <th>Action</th>
   </tr>
   <?php
   $num = 0;
@@ -19,6 +20,10 @@
       <td><?= esc($user->email) ?></td>
       <td><?= esc($user->bio) ?></td>
       <td><?= esc($user->role) ?></td>
+      <td>
+        <a href="/admin/users/edit/<?= esc($user->id) ?>">Edit</a>
+        <a href="/admin/users/delete/<?= esc($user->id) ?>">Delete</a>
+      </td>
     </tr>
   <?php endforeach; ?>
 </table>

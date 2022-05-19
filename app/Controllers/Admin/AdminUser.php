@@ -35,4 +35,14 @@ class AdminUser extends BaseController
 
         return view('pages/admin/user/create', $data);
     }
+
+    public function destroy($id)
+    {
+        return view('pages/admin/user/destroy');
+    }
+
+    public function update($id)
+    {
+        return view('pages/admin/user/update');
+    }
 }

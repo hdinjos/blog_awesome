@@ -44,6 +44,8 @@ $routes->group('admin', function ($routes) {
     $routes->group('users', function ($routes) {
         $routes->get('', 'Admin\AdminUser::index');
         $routes->add('create', 'Admin\AdminUser::create');
+        $routes->add('delete/(:num)', 'Admin\AdminUser::destroy/$1');
+        $routes->add('edit/(:num)', 'Admin\AdminUser::update/$1');
     });
 });
 
