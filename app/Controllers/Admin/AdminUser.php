@@ -18,7 +18,21 @@ class AdminUser extends BaseController
     public function create()
     {
         $modelRole = model(Roles::class);
+        $modelUser = model(Users::class);
         $data['roles'] = $modelRole->findAll();
+
+        if ($this->request->getMethod() === 'post') {
+            $reqData = [
+                'name' => $this->request->getPost('name'),
+                'email' => $this->request->getPost('email'),
+                'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                'bio' => $this->request->getPost('bio'),
+                'role_id' => $this->request->getPost('role'),
+            ];
+            $modelUser->insert($reqData);
+            return redirect()->to(base_url('admin/users'));
+        }
+
         return view('pages/admin/user/create', $data);
     }
 }

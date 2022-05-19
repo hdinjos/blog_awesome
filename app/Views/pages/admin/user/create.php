@@ -36,7 +36,7 @@
   <div>
     <label>
       Role
-      <select name="bio">
+      <select name="role">
         <?php foreach ($roles as $role) : ?>
           <option value="<?= esc($role->id) ?>"><?= esc($role->name) ?></option>
         <?php endforeach; ?>
