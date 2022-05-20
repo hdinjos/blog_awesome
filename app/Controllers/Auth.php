@@ -28,4 +28,10 @@ class Auth extends BaseController
 
         return view('pages/auth/login');
     }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to(base_url('login'));
+    }
 }
