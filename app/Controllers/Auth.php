@@ -19,7 +19,7 @@ class Auth extends BaseController
                 session()->set([
                     'name' => $currentUser->name,
                     'email' => $email,
-                    'isLogin' => true
+                    'isLoggedIn' => true
                 ]);
                 // session()
                 return redirect()->to(base_url('admin'));

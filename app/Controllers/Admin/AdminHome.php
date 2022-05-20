@@ -9,7 +9,7 @@ class AdminHome extends BaseController
     public function index()
     {
         //
-        var_dump(session()->get('name'));
+        // var_dump(session()->get('name'));
         return view('pages/admin/home');
     }
 }

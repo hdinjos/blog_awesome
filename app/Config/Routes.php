@@ -33,7 +33,7 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->add('/login', 'Auth::login');
-$routes->group('admin', function ($routes) {
+$routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
     $routes->get('', 'Admin\AdminHome::index');
     $routes->group('articles', function ($routes) {
         $routes->get('', 'Admin\AdminArticle::index');
