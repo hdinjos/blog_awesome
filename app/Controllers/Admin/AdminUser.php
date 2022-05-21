@@ -43,6 +43,21 @@ class AdminUser extends BaseController
 
     public function update($id)
     {
-        return view('pages/admin/user/update');
+        $modelRole = model(Roles::class);
+        $modelUser = model(Users::class);
+        $data['roles'] = $modelRole->findAll();
+        $data['user'] = $modelUser->find($id);
+
+        if ($this->request->getMethod() === 'post') {
+            $dataReq = [
+                'name' => $this->request->getPost('name'),
+                'email' => $this->request->getPost('email'),
+                'bio' => $this->request->getPost('bio'),
+                'role_id' => $this->request->getPost('role'),
+            ];
+            $modelUser->update($id, $dataReq);
+            return redirect()->to(base_url('admin/users'));
+        }
+        return view('pages/admin/user/update', $data);
     }
 }
