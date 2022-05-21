@@ -43,7 +43,7 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) { //middle
         $routes->add('edit/(:num)', 'Admin\AdminArticle::update/$1');
     });
     $routes->get('categories', 'Admin\AdminCategory::index');
-    $routes->group('users', function ($routes) {
+    $routes->group('users', ['filter' => 'roleGuard'], function ($routes) { //middleware auth not admin
         $routes->get('', 'Admin\AdminUser::index');
         $routes->add('create', 'Admin\AdminUser::create');
         $routes->add('delete/(:num)', 'Admin\AdminUser::destroy/$1');
