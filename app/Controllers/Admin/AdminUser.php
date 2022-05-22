@@ -38,6 +38,11 @@ class AdminUser extends BaseController
 
     public function destroy($id)
     {
+        $model = model(Users::class);
+        if ($this->request->getMethod() === 'post' && $id) {
+            $model->delete($id);
+            return redirect()->to(base_url('admin/users'));
+        }
         return view('pages/admin/user/destroy');
     }
 
