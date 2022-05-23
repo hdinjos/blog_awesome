@@ -3,8 +3,6 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Database\Migrations\Articles;
-use App\Database\Migrations\Categories;
 
 class AdminArticle extends BaseController
 {

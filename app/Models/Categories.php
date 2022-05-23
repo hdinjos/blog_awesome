@@ -11,7 +11,7 @@ class Categories extends Model
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $protectFields    = false;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['name'];
 
     public function index()
     {

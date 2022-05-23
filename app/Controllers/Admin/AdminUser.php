@@ -3,8 +3,6 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Database\Migrations\Roles;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class AdminUser extends BaseController
 {

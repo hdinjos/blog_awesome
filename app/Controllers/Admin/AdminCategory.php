@@ -9,6 +9,8 @@ class AdminCategory extends BaseController
     public function index()
     {
         //
-        return view('pages/admin/category/index');
+        $model = model(Categories::class);
+        $data['categories'] = $model->index();
+        return view('pages/admin/category/index', $data);
     }
 }
