@@ -26,4 +26,14 @@ class AdminCategory extends BaseController
         }
         return view('pages/admin/category/create');
     }
+
+    public function destroy($id)
+    {
+        $model = model(Categories::class);
+        if ($this->request->getMethod() === 'post' && $id) {
+            $model->delete($id);
+            return redirect()->to(base_url('admin/categories'));
+        }
+        return view('pages/admin/category/destroy');
+    }
 }

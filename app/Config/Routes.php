@@ -45,6 +45,7 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) { //middle
     $routes->group('categories', function ($routes) {
         $routes->get('', 'Admin\AdminCategory::index');
         $routes->add('create', 'Admin\AdminCategory::create');
+        $routes->add('delete/(:num)', 'Admin\AdminCategory::destroy/$1');
     });
     $routes->group('users', ['filter' => 'roleGuard'], function ($routes) { //middleware auth not admin
         $routes->get('', 'Admin\AdminUser::index');
