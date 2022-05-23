@@ -13,4 +13,17 @@ class AdminCategory extends BaseController
         $data['categories'] = $model->index();
         return view('pages/admin/category/index', $data);
     }
+
+    public function create()
+    {
+        $model = model(Categories::class);
+        if ($this->request->getMethod() === 'post') {
+            $dataReq = [
+                'name' => $this->request->getPost('name')
+            ];
+            $model->insert($dataReq);
+            return redirect()->to(base_url('admin/categories'));
+        }
+        return view('pages/admin/category/create');
+    }
 }

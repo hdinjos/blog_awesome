@@ -1,6 +1,7 @@
 <?= $this->extend('layout/layout_admin') ?>
 <?= $this->section('content') ?>
 <h2>List Categories</h2>
+<a href="/admin/categories/create">Add</a>
 <table>
   <tr>
     <td>No</td>
