@@ -52,6 +52,7 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) { //middle
         $routes->add('create', 'Admin\AdminUser::create');
         $routes->add('delete/(:num)', 'Admin\AdminUser::destroy/$1');
         $routes->add('edit/(:num)', 'Admin\AdminUser::update/$1');
+        $routes->add('change-password/(:num)', 'Admin\AdminUser::changePassword/$1');
     });
 });
 

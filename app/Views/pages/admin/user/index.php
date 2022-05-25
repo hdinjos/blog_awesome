@@ -21,6 +21,7 @@
       <td><?= esc($user->bio) ?></td>
       <td><?= esc($user->role) ?></td>
       <td>
+        <a href="/admin/users/change-password/<?= esc($user->id) ?>">Change Password</a>
         <a href="/admin/users/edit/<?= esc($user->id) ?>">Edit</a>
         <a href="/admin/users/delete/<?= esc($user->id) ?>">Delete</a>
       </td>

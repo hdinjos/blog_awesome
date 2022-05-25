@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use Config\Pager;
 
 class AdminUser extends BaseController
 {
@@ -51,7 +52,7 @@ class AdminUser extends BaseController
         $data['roles'] = $modelRole->findAll();
         $data['user'] = $modelUser->find($id);
 
-        if ($this->request->getMethod() === 'post') {
+        if ($this->request->getMethod() === 'post' && $id) {
             $dataReq = [
                 'name' => $this->request->getPost('name'),
                 'email' => $this->request->getPost('email'),
@@ -62,5 +63,19 @@ class AdminUser extends BaseController
             return redirect()->to(base_url('admin/users'));
         }
         return view('pages/admin/user/update', $data);
+    }
+
+    public function changePassword($id)
+    {
+        $model = model(Users::class);
+        if ($this->request->getMethod() === "post" && $id) {
+            $password = $this->request->getPost('password');
+            $passwordConfirm = $this->request->getPost('passwordConfirm');
+            if ($password === $passwordConfirm) {
+                $model->update($id, ['password' => password_hash($password, PASSWORD_DEFAULT)]);
+                return redirect()->to(base_url('admin/users'));
+            }
+        }
+        return view('/pages/admin/user/changePassword');
     }
 }
