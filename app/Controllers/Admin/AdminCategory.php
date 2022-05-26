@@ -36,4 +36,14 @@ class AdminCategory extends BaseController
         }
         return view('pages/admin/category/destroy');
     }
+
+    public function update($id)
+    {
+        $model = model(Categories::class);
+        if ($this->request->getMethod() === 'post' && $id) {
+            $model->update($id, ['name' => $this->request->getPost('name')]);
+            return redirect()->to(base_url('admin/categories'));
+        }
+        return view('pages/admin/category/update');
+    }
 }
