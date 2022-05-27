@@ -14,10 +14,14 @@
     <tr>
       <td><?= $num += 1 ?></td>
       <td><?= esc($category->name) ?></td>
-      <td>
-        <a href="/admin/categories/edit/<?= esc($category->id) ?>">Edit</a>
-        <a href="/admin/categories/delete/<?= esc($category->id) ?>">Delete</a>
-      </td>
+      <?php if ($_SESSION['role'] === '1') : ?>
+        <td>
+          <a href="/admin/categories/edit/<?= esc($category->id) ?>">Edit</a>
+          <a href="/admin/categories/delete/<?= esc($category->id) ?>">Delete</a>
+        </td>
+      <?php else : ?>
+        <td>No Action</td>
+      <?php endif; ?>
     </tr>
   <?php endforeach; ?>
 </table>
