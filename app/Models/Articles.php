@@ -35,14 +35,25 @@ class Articles extends Model
           INNER JOIN users AS T3 ON T1.author_id = T3.id')
         ->getResultObject();
 
-      //with model & query builder mixed
-      return $this
-        ->join('categories', 'categories.id = articles.category_id')
-        ->join('users', 'users.id = articles.author_id')
-        ->select('articles.*')
-        ->select('users.name as author')
-        ->select('categories.name as category')
-        ->findAll();
+      if (session()->get('role') === '1') { //filter by admin role
+        //with model & query builder mixed
+        return $this
+          ->join('categories', 'categories.id = articles.category_id')
+          ->join('users', 'users.id = articles.author_id')
+          ->select('articles.*')
+          ->select('users.name as author')
+          ->select('categories.name as category')
+          ->findAll();
+      } else {
+        return $this
+          ->join('categories', 'categories.id = articles.category_id')
+          ->join('users', 'users.id = articles.author_id')
+          ->where('users.id', session()->get('id'))
+          ->select('articles.*')
+          ->select('users.name as author')
+          ->select('categories.name as category')
+          ->findAll();
+      }
     }
   }
 }

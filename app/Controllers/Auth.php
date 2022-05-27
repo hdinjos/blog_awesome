@@ -17,6 +17,7 @@ class Auth extends BaseController
             $currentUser = $modelUser->where('email', $email)->first();
             if (password_verify($password, $currentUser->password)) {
                 session()->set([
+                    'id' => $currentUser->id,
                     'name' => $currentUser->name,
                     'email' => $email,
                     'role' => $currentUser->role_id,
