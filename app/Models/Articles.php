@@ -13,7 +13,7 @@ class Articles extends Model
   protected $protectFields    = false;
   protected $allowedFields    = ['title', 'image', 'slug', 'content', 'status', 'author_id', 'category_id'];
 
-  public function index($status = '')
+  public function index($status = '', $page = 1, $limit = 10)
   {
     if ($status === 'publish') {
       return $this
@@ -40,10 +40,12 @@ class Articles extends Model
         return $this
           ->join('categories', 'categories.id = articles.category_id')
           ->join('users', 'users.id = articles.author_id')
-          ->select('articles.*')
+          ->select('articles.id, articles.title, articles.image, articles.content, articles.status')
           ->select('users.name as author')
           ->select('categories.name as category')
-          ->findAll();
+          ->limit($limit, ($page - 1) * $limit)
+          ->get()
+          ->getResultObject();
       } else {
         return $this
           ->join('categories', 'categories.id = articles.category_id')

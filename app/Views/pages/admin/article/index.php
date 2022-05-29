@@ -32,4 +32,12 @@
     </tr>
   <?php endforeach; ?>
 </table>
+<div>
+  Pages
+  <a href="/admin/articles?page=1&limit=<?= $limit ?>">First</a>
+  <?php for ($i = 1; $i <= $pages; $i++) { ?>
+    <a href="/admin/articles?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
+  <?php  }; ?>
+  <a href="/admin/articles?page=<?= $pages ?>&limit=<?= $limit ?>">Last</a>
+</div>
 <?= $this->endSection() ?>

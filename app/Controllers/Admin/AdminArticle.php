@@ -9,7 +9,11 @@ class AdminArticle extends BaseController
     public function index()
     {
         $model = model(Articles::class);
-        $data['articles'] = $model->index();
+        $page = $this->request->getVar('page');
+        $limit = $this->request->getVar('limit');
+        $data['articles'] = $model->index('', $page, $limit);
+        $data['pages'] = ceil($model->countAll() / $limit);
+        $data['limit'] = $limit;
         return view('pages/admin/article/index', $data);
     }
 
