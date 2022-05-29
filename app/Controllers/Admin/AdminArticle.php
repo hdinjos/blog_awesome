@@ -14,6 +14,7 @@ class AdminArticle extends BaseController
         $data['articles'] = $model->index('', $page, $limit);
         $data['pages'] = ceil($model->countAll() / $limit);
         $data['limit'] = $limit;
+        $data['page'] = $page;
         return view('pages/admin/article/index', $data);
     }
 

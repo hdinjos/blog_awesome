@@ -13,10 +13,9 @@
     <th>Category</th>
     <th>Action</th>
   </tr>
-  <?php $num = 0; ?>
-  <?php foreach ($articles as $article) : ?>
+  <?php foreach ($articles as $key => $article) : ?>
     <tr>
-      <td><?= $num += 1 ?></td>
+      <td><?= ($page * $limit) - ($limit - 1) + $key ?></td>
       <td><?= esc($article->title) ?></td>
       <td>
         <img width="100" src="<?= base_url('assets/uploads/image') . '/' . esc($article->image) ?>" alt="article_img" ?>
