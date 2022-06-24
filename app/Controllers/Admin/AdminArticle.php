@@ -9,12 +9,13 @@ class AdminArticle extends BaseController
     public function index()
     {
         $model = model(Articles::class);
-        $page = $this->request->getVar('page');
-        $limit = $this->request->getVar('limit');
+        $page = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+        $limit = $this->request->getVar('limit') ? $this->request->getVar('limit') : 10;
         $data['articles'] = $model->index('', $page, $limit);
         $data['pages'] = ceil($model->countAll() / $limit);
         $data['limit'] = $limit;
         $data['page'] = $page;
+        session()->set(["page" => $page, "limit" => $limit]);
         return view('pages/admin/article/index', $data);
     }
 
@@ -64,11 +65,18 @@ class AdminArticle extends BaseController
         $model = model(Articles::class);
         if ($this->request->getMethod() === 'post' && $id) {
             $img = $model->find($id)->image;
+            $page = session()->get("page");
+            $limit = session()->get("limit");
             if ($img !== 'default_img.jpg') {
                 unlink('assets/uploads/image/' . $img);
             }
             $model->delete($id);
-            return redirect()->to(base_url('admin/articles'));
+            $countRow = $model->countAll();
+            if ($countRow % $limit !== 0 || $page === 1) {
+                return redirect()->to(base_url('admin/articles?page=' . $page . '&limit=' . $limit));
+            } else {
+                return redirect()->to(base_url('admin/articles?page=' . ($page - 1) . '&limit=' . $limit));
+            }
         }
         return view('pages/admin/article/destroy');
     }
@@ -86,6 +94,8 @@ class AdminArticle extends BaseController
         if ($this->request->getMethod() === 'post') {
             $imgFile = $this->request->getFile('image');
             $imgName = explode('.', $imgFile->getName())[0] . time() . '.' . $imgFile->getClientExtension();
+            $page = session()->get("page");
+            $limit = session()->get("limit");
 
             if ($imgFile->getName() === '') {
                 $dataReq = [
@@ -113,7 +123,8 @@ class AdminArticle extends BaseController
                 ];
                 $modelArticle->update($id, $dataReq);
             }
-            return redirect()->to(base_url('admin/articles'));
+
+            return redirect()->to(base_url('admin/articles?page=' . $page . '&limit=' . $limit));
         }
         return view('pages/admin/article/update', $data);
     }

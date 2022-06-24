@@ -4,3 +4,4 @@
   <?= csrf_field() ?>
   <input type="submit" name="submit" value="delete" />
 </form>
+<a href="/admin/articles">Back</a>
